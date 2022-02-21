@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.carrotmarket.databinding.ItemArticleBinding
+import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -16,10 +17,11 @@ class ArticleAdapter: ListAdapter<ArticleModel, ArticleAdapter.ViewHolder>(diffU
         fun bind(articleModel: ArticleModel) {
             val format = SimpleDateFormat("MM월 dd일")
             val date = Date(articleModel.createdAt)
+            val priceFormat = DecimalFormat("#,###")
 
             binding.titleTextView.text = articleModel.title
             binding.dateTextView.text = format.format(date).toString()
-            binding.priceTextView.text = articleModel.price
+            binding.priceTextView.text = "${priceFormat.format(articleModel.price.toInt())}원"
 
             if (articleModel.imageURL.isNotEmpty()) {
                 Glide.with(binding.thumbnailImageView)
