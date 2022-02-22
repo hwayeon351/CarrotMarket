@@ -5,8 +5,11 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.carrotmarket.DBKey.Companion.CHILD_CHAT
 import com.example.carrotmarket.DBKey.Companion.DB_ARTICLES
+import com.example.carrotmarket.DBKey.Companion.DB_USER
 import com.example.carrotmarket.R
+import com.example.carrotmarket.chatlist.ChatListItem
 import com.example.carrotmarket.databinding.FragmentHomeBinding
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
@@ -21,6 +24,7 @@ import com.google.firebase.ktx.Firebase
 class HomeFragment: Fragment(R.layout.fragment_home) {
 
     private lateinit var articleDB: DatabaseReference
+    private lateinit var userDB: DatabaseReference
     private lateinit var articleAdapter: ArticleAdapter
 
     private val articleList = mutableListOf<ArticleModel>()
@@ -56,7 +60,38 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
         binding = fragmentHomeBinding
 
         articleDB = Firebase.database.reference.child(DB_ARTICLES)
-        articleAdapter = ArticleAdapter()
+        userDB = Firebase.database.reference.child(DB_USER)
+        articleAdapter = ArticleAdapter(onItemClicked = { articleModel ->
+            if (auth.currentUser != null) {
+                if (auth.currentUser?.uid != articleModel.sellerId) {
+
+                    val chatRoom = ChatListItem(
+                        buyerId = auth.currentUser!!.uid,
+                        sellerId = articleModel.sellerId,
+                        itemTitle = articleModel.title,
+                        key = System.currentTimeMillis()
+                    )
+
+                    userDB.child(auth.currentUser!!.uid)
+                        .child(CHILD_CHAT)
+                        .push()
+                        .setValue(chatRoom)
+
+                    userDB.child(articleModel.sellerId)
+                        .child(CHILD_CHAT)
+                        .push()
+                        .setValue(chatRoom)
+
+                    Snackbar.make(view, "채팅방이 생성되었습니다. 채팅탭에서 확인해주세요.", Snackbar.LENGTH_LONG).show()
+
+                } else {
+                    Snackbar.make(view, "내가 올린 아이템 입니다.", Snackbar.LENGTH_LONG).show()
+                }
+            } else {
+                Snackbar.make(view, "로그인 후 사용해주세요.", Snackbar.LENGTH_LONG).show()
+            }
+
+        })
         articleList.clear()
 
         fragmentHomeBinding.articleRecyclerView.layoutManager = LinearLayoutManager(context)
@@ -64,17 +99,13 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
 
         fragmentHomeBinding.addFloatingButton.setOnClickListener {
             context?.let {
-                //todo 로그인 기능 구현 후에 주석 지우기
-                /*
+
                 if (auth.currentUser != null) {
                     val intent = Intent(it, AddArticleActivity::class.java)
                     startActivity(intent)
                 } else {
                     Snackbar.make(view, "로그인 후 사용해주세요.", Snackbar.LENGTH_LONG).show()
-                }*/
-
-                val intent = Intent(it, AddArticleActivity::class.java)
-                startActivity(intent)
+                }
 
             }
         }
