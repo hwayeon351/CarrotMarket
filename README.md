@@ -40,9 +40,15 @@
 </br>
 
 ## 활용 기술
-
-
-
+* BottomNavigationView - 하단에 홈, 채팅, 마이페이지 메뉴를 구성해 클릭 이벤트가 발생하면 Fragment를 전환하였습니다.
+* Fragment - 홈, 채팅, 마이페이지 화면을 Fragment로 구성하여 Fragment의 재사용성을 높였습니다.
+* ViewBinding - xml 레이아웃 파일의 바인딩 클래스를 자동으로 생성하는 ViewBinding 기법을 활용했습니다.
+* Firebase Authentication - Firebase Authentication을 활용해서 이메일과 비밀번호로 회원가입 및 로그인 기능을 구현했습니다.
+* Firebase Realtime Database - 모든 클라이언트에 실시간으로 데이터가 동기화 되도록 Firebase Realtime Database를 사용했습니다.
+* Firebase Storage - 이미지를 업로드하고 다운로드하는 기능을 구현하기 위해 Firebase Cloud Storage를 활용했습니다.
+* RecyclerView - ListAdapter를 상속하는 어댑터를 구현하여 DiffUtil을 활용해 RecyclerView 데이터를 업데이트하도록 구현하였습니다.
+* Glide - RecyclerView Item의 ImageView에 Firebase Storage에 저장된 이미지를 URL로부터 불러오기 위해 Glide를 활용했습니다.
+</br>
 
 ***
 <img src="/img/img0.png" width="300px" height="600px" title="" alt=""></img>
