@@ -1,7 +1,7 @@
 # CarrotMarket
 ### 중고 거래 앱
 
-#### 중고 제품 판매글을 업로드하고 거래자와 함께 채팅을 할 수 있는 당근 마켓 앱의 주요 기능을 구현한 안드로이드 앱 입니다.
+#### 중고 제품 판매글을 업로드하고 거래자와 채팅을 나눌 수 있는 당근 마켓 앱의 주요 기능을 구현한 안드로이드 앱 입니다.
 ### Blog
 * <https://hwayomingdlog.tistory.com/265>
 * <https://hwayomingdlog.tistory.com/266>
@@ -41,7 +41,7 @@
 
 ## 활용 기술
 * BottomNavigationView - 하단에 홈, 채팅, 마이페이지 메뉴를 구성해 클릭 이벤트가 발생하면 Fragment를 전환하였습니다.
-* Fragment - 홈, 채팅, 마이페이지 화면을 Fragment로 구성하여 Fragment의 재사용성을 높였습니다.
+* Fragment - 홈, 채팅, 마이페이지 화면을 Fragment로 구성하여 재사용성을 높였습니다.
 * ViewBinding - xml 레이아웃 파일의 바인딩 클래스를 자동으로 생성하는 ViewBinding 기법을 활용했습니다.
 * Firebase Authentication - Firebase Authentication을 활용해서 이메일과 비밀번호로 회원가입 및 로그인 기능을 구현했습니다.
 * Firebase Realtime Database - 모든 클라이언트에 실시간으로 데이터가 동기화 되도록 Firebase Realtime Database를 사용했습니다.
